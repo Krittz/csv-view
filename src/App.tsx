@@ -185,6 +185,199 @@ const App = () => {
 
   const displayData = csvData.length > 0 ? csvData : sampleData;
 
+  const handlePrint = () => {
+    const printWindow = window.open("", "_blank");
+    if (!printWindow) return;
+
+    const tableHeaders =
+      csvData.length > 0
+        ? Object.keys(csvData[0])
+        : ["Invoice", "Status", "Método", "Valor"];
+
+    const tableRows = displayData
+      .map((row, index) => {
+        if (csvData.length > 0) {
+          return `
+          <tr>
+            ${Object.entries(row)
+              .map(([key, value]) => `<td>${value}</td>`)
+              .join("")}
+          </tr>
+        `;
+        } else {
+          return `
+          <tr>
+            <td>${(row as any).invoice}</td>
+            <td>${(row as any).paymentStatus}</td>
+            <td>${(row as any).paymentMethod}</td>
+            <td>${(row as any).totalAmount}</td>
+          </tr>
+        `;
+        }
+      })
+      .join("");
+
+    const printContent = `
+      <!DOCTYPE html>
+      <html>
+        <head>
+          <title>Relatório CSV - ${
+            fileStats?.fileName || "Dados de Exemplo"
+          }</title>
+          <style>
+            body {
+              font-family: Arial, sans-serif;
+              margin: 20px;
+              color: #333;
+            }
+            .header {
+              text-align: center;
+              margin-bottom: 30px;
+              border-bottom: 2px solid #6366f1;
+              padding-bottom: 20px;
+            }
+            .header h1 {
+              color: #6366f1;
+              margin: 0;
+              font-size: 24px;
+            }
+            .header p {
+              margin: 5px 0;
+              color: #666;
+            }
+            .stats {
+              display: flex;
+              justify-content: space-around;
+              margin-bottom: 30px;
+              background: #f8fafc;
+              padding: 15px;
+              border-radius: 8px;
+            }
+            .stat-item {
+              text-align: center;
+            }
+            .stat-label {
+              font-weight: bold;
+              color: #374151;
+              font-size: 12px;
+              text-transform: uppercase;
+            }
+            .stat-value {
+              font-size: 16px;
+              color: #6366f1;
+              font-weight: bold;
+            }
+            table {
+              width: 100%;
+              border-collapse: collapse;
+              margin-top: 20px;
+              box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            }
+            th {
+              background-color: #6366f1;
+              color: white;
+              padding: 12px 8px;
+              text-align: left;
+              font-weight: bold;
+              font-size: 12px;
+            }
+            td {
+              padding: 10px 8px;
+              border-bottom: 1px solid #e5e7eb;
+              font-size: 11px;
+            }
+            tr:nth-child(even) {
+              background-color: #f9fafb;
+            }
+            tr:hover {
+              background-color: #f3f4f6;
+            }
+            .footer {
+              margin-top: 30px;
+              text-align: center;
+              font-size: 10px;
+              color: #9ca3af;
+              border-top: 1px solid #e5e7eb;
+              padding-top: 15px;
+            }
+            @media print {
+              body { margin: 0; }
+              .header { page-break-after: avoid; }
+              table { page-break-inside: auto; }
+              tr { page-break-inside: avoid; page-break-after: auto; }
+              th { background-color: #6366f1 !important; -webkit-print-color-adjust: exact; }
+            }
+          </style>
+        </head>
+        <body>
+          <div class="header">
+            <h1>📊 Relatório CSV</h1>
+            <p><strong>Arquivo:</strong> ${
+              fileStats?.fileName || "Dados de Exemplo"
+            }</p>
+            <p><strong>Data de Impressão:</strong> ${new Date().toLocaleString(
+              "pt-BR"
+            )}</p>
+          </div>
+          
+          <div class="stats">
+            <div class="stat-item">
+              <div class="stat-label">Total de Linhas</div>
+              <div class="stat-value">${
+                fileStats ? fileStats.totalRows : sampleData.length
+              }</div>
+            </div>
+            <div class="stat-item">
+              <div class="stat-label">Colunas</div>
+              <div class="stat-value">${
+                fileStats
+                  ? fileStats.columns.length
+                  : Object.keys(sampleData[0]).length
+              }</div>
+            </div>
+            <div class="stat-item">
+              <div class="stat-label">Tamanho</div>
+              <div class="stat-value">${
+                fileStats ? fileStats.fileSize : "N/A"
+              }</div>
+            </div>
+            <div class="stat-item">
+              <div class="stat-label">Encoding</div>
+              <div class="stat-value">${
+                fileStats ? fileStats.encoding : "Auto"
+              }</div>
+            </div>
+          </div>
+
+          <table>
+            <thead>
+              <tr>
+                ${tableHeaders.map((header) => `<th>${header}</th>`).join("")}
+              </tr>
+            </thead>
+            <tbody>
+              ${tableRows}
+            </tbody>
+          </table>
+
+          <div class="footer">
+            <p>Gerado por CSV View | KrittZ - © 2025</p>
+            <p>Total de ${displayData.length} registros processados</p>
+          </div>
+        </body>
+      </html>
+    `;
+
+    printWindow.document.write(printContent);
+    printWindow.document.close();
+
+    // Aguarda o carregamento e imprime
+    printWindow.onload = () => {
+      printWindow.print();
+      printWindow.close();
+    };
+  };
+
   const processFile = async (file: File) => {
     setIsLoading(true);
     setError(null);
@@ -436,6 +629,7 @@ const App = () => {
           </Button>
           <Button
             variant="outline"
+            onClick={handlePrint}
             className="border-indigo-500 text-indigo-500 hover:bg-indigo-50 flex gap-2 justify-center text-sm sm:text-base transition-all duration-300 bg-transparent"
           >
             <Printer size={16} />
