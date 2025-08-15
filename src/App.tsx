@@ -95,7 +95,7 @@ const detectEncoding = async (file: File): Promise<string> => {
         resolve("windows-1252");
       }
     };
-    reader.readAsArrayBuffer(file.slice(0, 2048)); 
+    reader.readAsArrayBuffer(file.slice(0, 2048));
   });
 };
 
@@ -193,175 +193,169 @@ const App = () => {
       .map((row, index) => {
         if (csvData.length > 0) {
           return `
-          <tr>
-            ${Object.entries(row)
-              .map(([key, value]) => `<td>${value}</td>`)
+            <tr key=${index}>
+              ${Object.entries(row)
+              .map(([key, value]) => `<td key=${key}>${value}</td>`)
               .join("")}
-          </tr>
-        `;
+            </tr>
+          `;
         } else {
           return `
-          <tr>
-            <td>${(row as any).invoice}</td>
-            <td>${(row as any).paymentStatus}</td>
-            <td>${(row as any).paymentMethod}</td>
-            <td>${(row as any).totalAmount}</td>
-          </tr>
-        `;
+            <tr>
+              <td>${(row as any).invoice}</td>
+              <td>${(row as any).paymentStatus}</td>
+              <td>${(row as any).paymentMethod}</td>
+              <td>${(row as any).totalAmount}</td>
+            </tr>
+          `;
         }
       })
       .join("");
 
     const printContent = `
-      <!DOCTYPE html>
-      <html>
-        <head>
-          <title>Relatório CSV - ${
-            fileStats?.fileName || "Dados de Exemplo"
-          }</title>
-          <style>
-            body {
-              font-family: Arial, sans-serif;
-              margin: 20px;
-              color: #333;
-            }
-            .header {
-              text-align: center;
-              margin-bottom: 30px;
-              border-bottom: 2px solid #6366f1;
-              padding-bottom: 20px;
-            }
-            .header h1 {
-              color: #6366f1;
-              margin: 0;
-              font-size: 24px;
-            }
-            .header p {
-              margin: 5px 0;
-              color: #666;
-            }
-            .stats {
-              display: flex;
-              justify-content: space-around;
-              margin-bottom: 30px;
-              background: #f8fafc;
-              padding: 15px;
-              border-radius: 8px;
-            }
-            .stat-item {
-              text-align: center;
-            }
-            .stat-label {
-              font-weight: bold;
-              color: #374151;
-              font-size: 12px;
-              text-transform: uppercase;
-            }
-            .stat-value {
-              font-size: 16px;
-              color: #6366f1;
-              font-weight: bold;
-            }
-            table {
-              width: 100%;
-              border-collapse: collapse;
-              margin-top: 20px;
-              box-shadow: 0 1px 3px rgba(0,0,0,0.1);
-            }
-            th {
-              background-color: #6366f1;
-              color: white;
-              padding: 12px 8px;
-              text-align: left;
-              font-weight: bold;
-              font-size: 12px;
-            }
-            td {
-              padding: 10px 8px;
-              border-bottom: 1px solid #e5e7eb;
-              font-size: 11px;
-            }
-            tr:nth-child(even) {
-              background-color: #f9fafb;
-            }
-            tr:hover {
-              background-color: #f3f4f6;
-            }
-            .footer {
-              margin-top: 30px;
-              text-align: center;
-              font-size: 10px;
-              color: #9ca3af;
-              border-top: 1px solid #e5e7eb;
-              padding-top: 15px;
-            }
-            @media print {
-              body { margin: 0; }
-              .header { page-break-after: avoid; }
-              table { page-break-inside: auto; }
-              tr { page-break-inside: avoid; page-break-after: auto; }
-              th { background-color: #6366f1 !important; -webkit-print-color-adjust: exact; }
-            }
-          </style>
-        </head>
-        <body>
-          <div class="header">
-            <h1>📊 Relatório CSV</h1>
-            <p><strong>Arquivo:</strong> ${
-              fileStats?.fileName || "Dados de Exemplo"
-            }</p>
-            <p><strong>Data de Impressão:</strong> ${new Date().toLocaleString(
-              "pt-BR"
-            )}</p>
-          </div>
-          
-          <div class="stats">
-            <div class="stat-item">
-              <div class="stat-label">Total de Linhas</div>
-              <div class="stat-value">${
-                fileStats ? fileStats.totalRows : sampleData.length
-              }</div>
+        <!DOCTYPE html>
+        <html>
+          <head>
+            <title>Relatório CSV - ${fileStats?.fileName || "Dados de Exemplo"
+      }</title>
+            <style>
+              body {
+                font-family: Arial, sans-serif;
+                margin: 20px;
+                color: #333;
+              }
+              .header {
+                text-align: center;
+                margin-bottom: 30px;
+                border-bottom: 2px solid #6366f1;
+                padding-bottom: 20px;
+              }
+              .header h1 {
+                color: #6366f1;
+                margin: 0;
+                font-size: 24px;
+              }
+              .header p {
+                margin: 5px 0;
+                color: #666;
+              }
+              .stats {
+                display: flex;
+                justify-content: space-around;
+                margin-bottom: 30px;
+                background: #f8fafc;
+                padding: 15px;
+                border-radius: 8px;
+              }
+              .stat-item {
+                text-align: center;
+              }
+              .stat-label {
+                font-weight: bold;
+                color: #374151;
+                font-size: 12px;
+                text-transform: uppercase;
+              }
+              .stat-value {
+                font-size: 16px;
+                color: #6366f1;
+                font-weight: bold;
+              }
+              table {
+                width: 100%;
+                border-collapse: collapse;
+                margin-top: 20px;
+                box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+              }
+              th {
+                background-color: #6366f1;
+                color: white;
+                padding: 12px 8px;
+                text-align: left;
+                font-weight: bold;
+                font-size: 12px;
+              }
+              td {
+                padding: 10px 8px;
+                border-bottom: 1px solid #e5e7eb;
+                font-size: 11px;
+              }
+              tr:nth-child(even) {
+                background-color: #f9fafb;
+              }
+              tr:hover {
+                background-color: #f3f4f6;
+              }
+              .footer {
+                margin-top: 30px;
+                text-align: center;
+                font-size: 10px;
+                color: #9ca3af;
+                border-top: 1px solid #e5e7eb;
+                padding-top: 15px;
+              }
+              @media print {
+                body { margin: 0; }
+                .header { page-break-after: avoid; }
+                table { page-break-inside: auto; }
+                tr { page-break-inside: avoid; page-break-after: auto; }
+                th { background-color: #6366f1 !important; -webkit-print-color-adjust: exact; }
+              }
+            </style>
+          </head>
+          <body>
+            <div class="header">
+              <h1>📊 Relatório CSV</h1>
+              <p><strong>Arquivo:</strong> ${fileStats?.fileName || "Dados de Exemplo"
+      }</p>
+              <p><strong>Data de Impressão:</strong> ${new Date().toLocaleString(
+        "pt-BR"
+      )}</p>
             </div>
-            <div class="stat-item">
-              <div class="stat-label">Colunas</div>
-              <div class="stat-value">${
-                fileStats
-                  ? fileStats.columns.length
-                  : Object.keys(sampleData[0]).length
-              }</div>
+            
+            <div class="stats">
+              <div class="stat-item">
+                <div class="stat-label">Total de Linhas</div>
+                <div class="stat-value">${fileStats ? fileStats.totalRows : sampleData.length
+      }</div>
+              </div>
+              <div class="stat-item">
+                <div class="stat-label">Colunas</div>
+                <div class="stat-value">${fileStats
+        ? fileStats.columns.length
+        : Object.keys(sampleData[0]).length
+      }</div>
+              </div>
+              <div class="stat-item">
+                <div class="stat-label">Tamanho</div>
+                <div class="stat-value">${fileStats ? fileStats.fileSize : "N/A"
+      }</div>
+              </div>
+              <div class="stat-item">
+                <div class="stat-label">Encoding</div>
+                <div class="stat-value">${fileStats ? fileStats.encoding : "Auto"
+      }</div>
+              </div>
             </div>
-            <div class="stat-item">
-              <div class="stat-label">Tamanho</div>
-              <div class="stat-value">${
-                fileStats ? fileStats.fileSize : "N/A"
-              }</div>
-            </div>
-            <div class="stat-item">
-              <div class="stat-label">Encoding</div>
-              <div class="stat-value">${
-                fileStats ? fileStats.encoding : "Auto"
-              }</div>
-            </div>
-          </div>
 
-          <table>
-            <thead>
-              <tr>
-                ${tableHeaders.map((header) => `<th>${header}</th>`).join("")}
-              </tr>
-            </thead>
-            <tbody>
-              ${tableRows}
-            </tbody>
-          </table>
+            <table>
+              <thead>
+                <tr>
+                  ${tableHeaders.map((header) => `<th>${header}</th>`).join("")}
+                </tr>
+              </thead>
+              <tbody>
+                ${tableRows}
+              </tbody>
+            </table>
 
-          <div class="footer">
-            <p>Gerado por CSV View | KrittZ - © 2025</p>
-            <p>Total de ${displayData.length} registros processados</p>
-          </div>
-        </body>
-      </html>
-    `;
+            <div class="footer">
+              <p>Gerado por CSV View | KrittZ - © 2025</p>
+              <p>Total de ${displayData.length} registros processados</p>
+            </div>
+          </body>
+        </html>
+      `;
 
     printWindow.document.write(printContent);
     printWindow.document.close();
@@ -375,7 +369,6 @@ const App = () => {
   const handleDownloadPDF = () => {
     const doc = new jsPDF()
 
-    const pageWidth = doc.internal.pageSize.width
     const margin = 14
 
     doc.setFontSize(20)
@@ -417,7 +410,7 @@ const App = () => {
         cellPadding: 3,
       },
       headStyles: {
-        fillColor: [99, 102, 241], 
+        fillColor: [99, 102, 241],
         textColor: [255, 255, 255],
         fontStyle: "bold",
       },
@@ -475,7 +468,7 @@ const App = () => {
           const cleanedData = parsedData.map((row) => {
             const cleanRow: CSVRow = {};
             Object.keys(row).forEach((key) => {
-              const cleanKey = key.trim().replace(/\uFEFF/g, ""); 
+              const cleanKey = key.trim().replace(/\uFEFF/g, "");
               cleanRow[cleanKey] = row[key] ? row[key].toString().trim() : "";
             });
             return cleanRow;
@@ -496,7 +489,7 @@ const App = () => {
 
           console.log("Arquivo processado com sucesso!");
         },
-        error: (error) => {
+        error: (error: Error) => {
           console.error("Erro ao processar arquivo CSV:", error);
           setError("Erro ao processar arquivo CSV: " + error.message);
         },
@@ -553,10 +546,9 @@ const App = () => {
 
     return (
       <span
-        className={`px-2 py-1 rounded-full text-xs font-semibold whitespace-nowrap ${
-          statusClasses[status as keyof typeof statusClasses] ||
+        className={`px-2 py-1 rounded-full text-xs font-semibold whitespace-nowrap ${statusClasses[status as keyof typeof statusClasses] ||
           "bg-gray-100 text-gray-700"
-        }`}
+          }`}
       >
         {status}
       </span>
@@ -626,11 +618,10 @@ const App = () => {
           </CardHeader>
           <CardContent className="space-y-4">
             <div
-              className={`relative p-8 border-2 border-dashed rounded-lg transition-all duration-300 ${
-                dragActive
-                  ? "border-indigo-500 bg-indigo-50 scale-105"
-                  : "border-gray-300 hover:border-indigo-400 hover:bg-gray-50"
-              }`}
+              className={`relative p-8 border-2 border-dashed rounded-lg transition-all duration-300 ${dragActive
+                ? "border-indigo-500 bg-indigo-50 scale-105"
+                : "border-gray-300 hover:border-indigo-400 hover:bg-gray-50"
+                }`}
               onDragEnter={handleDrag}
               onDragLeave={handleDrag}
               onDragOver={handleDrag}
