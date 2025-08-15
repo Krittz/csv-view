@@ -1,69 +1,42 @@
-<p align="center">
-  <img src="https://media.giphy.com/media/26gsspfjmJPJmy8A0/giphy.gif" width="200"/>
-</p>
-
-<h1 align="center">📊 CSV View | KrittZ</h1>
-<p align="center">
-  <strong>Visualize, analise e exporte seus arquivos CSV com estilo e praticidade!</strong>
-</p>
-
-<p align="center">
-  <a href="https://krittz.github.io/csv-view">
-    <img src="https://img.shields.io/badge/Visit-Online-green?style=for-the-badge&logo=github" alt="Site Online"/>
-  </a>
-  <img src="https://img.shields.io/badge/Status-Production-brightgreen?style=for-the-badge" alt="Status"/>
-  <img src="https://img.shields.io/badge/React-18-blue?style=for-the-badge&logo=react" alt="React"/>
-  <img src="https://img.shields.io/badge/TypeScript-TS-blue?style=for-the-badge&logo=typescript" alt="TypeScript"/>
-  <img src="https://img.shields.io/badge/Vite-Fast-purple?style=for-the-badge&logo=vite" alt="Vite"/>
-  <img src="https://img.shields.io/badge/TailwindCSS-Beautiful-teal?style=for-the-badge&logo=tailwind-css" alt="TailwindCSS"/>
-</p>
+---
 
 ---
 
-## ✨ Demonstração
-
-<p align="center">
-  <img src="https://media.giphy.com/media/l3vR85PnGsBwu1PFK/giphy.gif" width="600"/>
-</p>
+## ✨ Demonstração Interativa
 
 ---
 
 ## 💡 Sobre o Projeto
 
-**CSV View** é uma aplicação moderna feita em **React + TypeScript**, com integração de **TailwindCSS** e **shadcn/ui**, para você:
+**CSV View** é uma aplicação moderna feita em **React + TypeScript**, com **TailwindCSS** e **shadcn/ui**, projetada para oferecer uma experiência estética e funcional:
 
-- ✅ Importar arquivos CSV de qualquer origem.
-- ✅ Visualizar dados em tabelas dinâmicas e responsivas.
-- ✅ Visualizar estatísticas instantâneas: total de linhas, colunas, tamanho do arquivo, encoding.
-- ✅ Exportar relatórios em PDF ou imprimir com estilo.
-- ✅ Suporte completo a encodings UTF-8, Windows-1252 e ISO-8859-1.
-- ✅ UI elegante, interativa e responsiva.
-
----
-
-## 🚀 Funcionalidades
-
-| Funcionalidade                  | Status |
-|---------------------------------|--------|
-| Upload CSV                       | ✅      |
-| Visualização de tabela           | ✅      |
-| Estatísticas em cards             | ✅      |
-| PDF Export                        | ✅      |
-| Impressão                        | ✅      |
-| Drag & Drop                      | ✅      |
-| Suporte a múltiplos encodings    | ✅      |
-
-<p align="center">
-  <img src="https://media.giphy.com/media/3o7aD2saalBwwftBIY/giphy.gif" width="500"/>
-</p>
+- ✅ Importar e visualizar arquivos CSV com tabelas dinâmicas.
+- ✅ Estatísticas instantâneas: linhas, colunas, tamanho, encoding.
+- ✅ Exportar PDFs e imprimir com estilo.
+- ✅ Suporte completo a UTF-8, Windows-1252 e ISO-8859-1.
+- ✅ UI tech e elegante, perfeita para devs e profissionais.
 
 ---
 
-## 🛠 Tecnologias
+## 🚀 Funcionalidades Principais
 
-- **Frontend:** React, TypeScript, Vite, TailwindCSS, shadcn/ui  
-- **Parsing CSV:** PapaParse  
-- **PDF e Impressão:** jsPDF + jsPDF-AutoTable  
+| Funcionalidade                | Status |
+| ----------------------------- | ------ |
+| Upload CSV                    | ✅      |
+| Visualização de tabela        | ✅      |
+| Estatísticas em cards         | ✅      |
+| PDF Export                    | ✅      |
+| Impressão                     | ✅      |
+| Drag & Drop                   | ✅      |
+| Suporte a múltiplos encodings | ✅      |
+
+---
+
+## 🛠 Tecnologias Utilizadas
+
+- **Frontend:** React, TypeScript, Vite, TailwindCSS, shadcn/ui
+- **Parsing CSV:** PapaParse
+- **PDF & Impressão:** jsPDF + jsPDF-AutoTable
 - **Deploy:** GitHub Pages
 
 ---
@@ -76,3 +49,57 @@ Clone o repositório:
 git clone https://github.com/Krittz/csv-view.git
 cd csv-view
 npm install
+```
+
+Rodar em modo dev:
+
+```bash
+npm run dev
+```
+
+Build para produção:
+
+```bash
+npm run build
+```
+
+Deploy para GitHub Pages:
+
+```bash
+npm run deploy
+```
+
+---
+
+## 🌈 Capturas de Tela Tech-Aesthetic
+
+---
+
+## 📂 Estrutura do Projeto
+
+```
+csv-view/
+├─ src/
+│  ├─ components/ui/        # Componentes shadcn/ui
+│  ├─ App.tsx              # Componente principal
+│  └─ main.tsx             # Entrada React
+├─ public/
+├─ package.json
+├─ vite.config.ts
+└─ tailwind.config.ts
+```
+
+---
+
+## 💬 Contato
+
+- GitHub: [@krittz](https://github.com/krittz)
+- Portfolio: [kodificar.com.br](https://kodificar.com.br)
+- E-mail: [contato@kodificar.com.br](mailto\:contato@kodificar.com.br)
+
+---
+
+> **Nota:** Este projeto é totalmente frontend, leve e otimizado para visualização, análise e exportação de CSVs com estética tech-professional. Um README ultra aesthetic para impressionar qualquer visitante do GitHub.
+
+```
+```
