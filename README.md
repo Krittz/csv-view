@@ -77,7 +77,11 @@ npm run deploy
 
 ## 🌈 Capturas de Tela Tech-Aesthetic
 
-<p align="center"> <img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExam0zN2ltbWlpeWN5Y3JyYTNvYzlhaDR0NW90MXBhcWR0eHl6enZ1ayZlcD12MV9naWZzX3NlYXJjaCZjdD1n/3o7WILxziMaugB5Va8/giphy.gif" width="600"/> </p> <p align="center"> <img src="https://media.giphy.com/media/xT0xeJpnrWC4XWblEk/giphy.gif" width="600"/> </p>
+<p align="center"> <img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExam0zN2ltbWlpeWN5Y3JyYTNvYzlhaDR0NW90MXBhcWR0eHl6enZ1ayZlcD12MV9naWZzX3NlYXJjaCZjdD1n/3o7WILxziMaugB5Va8/giphy.gif" width="600"/> </p> 
+
+---
+
+<p align="center"> <img src="https://media.giphy.com/media/xT0xeJpnrWC4XWblEk/giphy.gif" width="600"/> </p>
 
 ---
 
