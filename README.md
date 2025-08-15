@@ -4,6 +4,10 @@
 
 ## ✨ Demonstração Interativa
 
+<p align="center">
+  <img src="https://media0.giphy.com/media/v1.Y2lkPTc5MGI3NjExN3V0bnVnaHBlcnJrcjd4ZXVjZzF6OWdsaXJ0ZGtka3NnZjVpdTI4aCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/CuuSHzuc0O166MRfjt/giphy.gif" width="600"/>
+</p>
+
 ---
 
 ## 💡 Sobre o Projeto
@@ -73,6 +77,8 @@ npm run deploy
 
 ## 🌈 Capturas de Tela Tech-Aesthetic
 
+<p align="center"> <img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExam0zN2ltbWlpeWN5Y3JyYTNvYzlhaDR0NW90MXBhcWR0eHl6enZ1ayZlcD12MV9naWZzX3NlYXJjaCZjdD1n/3o7WILxziMaugB5Va8/giphy.gif" width="600"/> </p> <p align="center"> <img src="https://media.giphy.com/media/xT0xeJpnrWC4XWblEk/giphy.gif" width="600"/> </p>
+
 ---
 
 ## 📂 Estrutura do Projeto
@@ -94,7 +100,7 @@ csv-view/
 ## 💬 Contato
 
 - GitHub: [@krittz](https://github.com/krittz)
-- Portfolio: [kodificar.com.br](https://kodificar.com.br)
+- Portfolio: [krittz.github.io/portifolio](https://krittz.github.io/portifolio/)
 - E-mail: [contato@kodificar.com.br](mailto\:contato@kodificar.com.br)
 
 ---
