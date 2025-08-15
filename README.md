@@ -81,7 +81,7 @@ npm run deploy
 
 ---
 
-<p align="center"> <img src="https://media.giphy.com/media/xT0xeJpnrWC4XWblEk/giphy.gif" width="600"/> </p>
+<p align="center"> <img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExcDU5NW42NDNoeHV0Ymp2cTVuNzB3a2lwbHA4ajYycGdxcDM1MHFxdyZlcD12MV9naWZzX3NlYXJjaCZjdD1n/8m7nAJTYvzNUh54HQm/giphy.gif" width="600"/> </p>
 
 ---
 
