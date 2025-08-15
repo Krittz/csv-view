@@ -1,6 +1,8 @@
 "use client";
 
 import type React from "react";
+import jsPDF from "jspdf";
+import autoTable from "jspdf-autotable";
 
 import { useState } from "react";
 import Papa from "papaparse";
@@ -33,7 +35,6 @@ interface FileStats {
   encoding: string;
 }
 
-// Função para detectar encoding do arquivo
 const detectEncoding = async (file: File): Promise<string> => {
   return new Promise((resolve) => {
     const reader = new FileReader();
@@ -41,7 +42,6 @@ const detectEncoding = async (file: File): Promise<string> => {
       const buffer = e.target?.result as ArrayBuffer;
       const bytes = new Uint8Array(buffer);
 
-      // Verifica BOM (Byte Order Mark)
       if (
         bytes.length >= 3 &&
         bytes[0] === 0xef &&
@@ -52,11 +52,9 @@ const detectEncoding = async (file: File): Promise<string> => {
         return;
       }
 
-      // Verifica se tem caracteres UTF-8 válidos
       let hasValidUTF8 = true;
       for (let i = 0; i < Math.min(bytes.length, 1000); i++) {
         if (bytes[i] > 127) {
-          // Verifica sequência UTF-8
           if ((bytes[i] & 0xe0) === 0xc0) {
             if (i + 1 >= bytes.length || (bytes[i + 1] & 0xc0) !== 0x80) {
               hasValidUTF8 = false;
@@ -94,15 +92,13 @@ const detectEncoding = async (file: File): Promise<string> => {
       if (hasValidUTF8) {
         resolve("UTF-8");
       } else {
-        // Provavelmente é Windows-1252 ou ISO-8859-1
         resolve("windows-1252");
       }
     };
-    reader.readAsArrayBuffer(file.slice(0, 2048)); // Lê apenas os primeiros 2KB para detecção
+    reader.readAsArrayBuffer(file.slice(0, 2048)); 
   });
 };
 
-// Função para ler arquivo com encoding específico
 const readFileWithEncoding = (
   file: File,
   encoding: string
@@ -117,7 +113,6 @@ const readFileWithEncoding = (
     if (encoding === "UTF-8") {
       reader.readAsText(file, "UTF-8");
     } else {
-      // Para outros encodings, lemos como ArrayBuffer e convertemos
       const arrayReader = new FileReader();
       arrayReader.onload = (e) => {
         const buffer = e.target?.result as ArrayBuffer;
@@ -371,26 +366,91 @@ const App = () => {
     printWindow.document.write(printContent);
     printWindow.document.close();
 
-    // Aguarda o carregamento e imprime
     printWindow.onload = () => {
       printWindow.print();
       printWindow.close();
     };
   };
 
+  const handleDownloadPDF = () => {
+    const doc = new jsPDF()
+
+    const pageWidth = doc.internal.pageSize.width
+    const margin = 14
+
+    doc.setFontSize(20)
+    doc.setTextColor(99, 102, 241)
+    doc.text("Relatório CSV", margin, 25)
+
+    doc.setFontSize(10)
+    doc.setTextColor(100, 100, 100)
+    doc.text(`Arquivo: ${fileStats?.fileName || "Dados de Exemplo"}`, margin, 35)
+    doc.text(`Data: ${new Date().toLocaleString("pt-BR")}`, margin, 42)
+    doc.text(`Encoding: ${fileStats?.encoding || "Auto"}`, margin, 49)
+
+    doc.setFontSize(12)
+    doc.setTextColor(0, 0, 0)
+    doc.text("Estatísticas:", margin, 62)
+
+    doc.setFontSize(10)
+    doc.text(`• Total de linhas: ${fileStats ? fileStats.totalRows : sampleData.length}`, margin + 5, 70)
+    doc.text(`• Colunas: ${fileStats ? fileStats.columns.length : Object.keys(sampleData[0]).length}`, margin + 5, 77)
+    doc.text(`• Tamanho: ${fileStats ? fileStats.fileSize : "N/A"}`, margin + 5, 84)
+
+    const tableHeaders = csvData.length > 0 ? Object.keys(csvData[0]) : ["Invoice", "Status", "Método", "Valor"]
+
+    const tableData = displayData.map((row) => {
+      if (csvData.length > 0) {
+        return Object.values(row)
+      } else {
+        return [(row as any).invoice, (row as any).paymentStatus, (row as any).paymentMethod, (row as any).totalAmount]
+      }
+    })
+
+    autoTable(doc, {
+      head: [tableHeaders],
+      body: tableData,
+      startY: 95,
+      margin: { left: margin, right: margin },
+      styles: {
+        fontSize: 8,
+        cellPadding: 3,
+      },
+      headStyles: {
+        fillColor: [99, 102, 241], 
+        textColor: [255, 255, 255],
+        fontStyle: "bold",
+      },
+      alternateRowStyles: {
+        fillColor: [249, 250, 251],
+      },
+      columnStyles: {
+        0: { cellWidth: "auto" },
+      },
+    })
+
+    const finalY = (doc as any).lastAutoTable?.finalY || 95
+    doc.setFontSize(8)
+    doc.setTextColor(150, 150, 150)
+    doc.text(`Gerado por CSV View | KrittZ - © 2025`, margin, finalY + 20)
+    doc.text(`Total de ${displayData.length} registros processados`, margin, finalY + 27)
+
+    const fileName = fileStats?.fileName
+      ? `${fileStats.fileName.replace(".csv", "")}_relatorio.pdf`
+      : `relatorio_csv_${new Date().toISOString().split("T")[0]}.pdf`
+
+    doc.save(fileName)
+  }
   const processFile = async (file: File) => {
     setIsLoading(true);
     setError(null);
 
     try {
-      // Detecta o encoding do arquivo
       const detectedEncoding = await detectEncoding(file);
       console.log("Encoding detectado:", detectedEncoding);
 
-      // Lê o arquivo com o encoding correto
       const fileContent = await readFileWithEncoding(file, detectedEncoding);
 
-      // Processa o CSV com PapaParse
       Papa.parse(fileContent, {
         header: true,
         skipEmptyLines: true,
@@ -412,17 +472,15 @@ const App = () => {
             return;
           }
 
-          // Limpar headers (remover espaços e caracteres invisíveis)
           const cleanedData = parsedData.map((row) => {
             const cleanRow: CSVRow = {};
             Object.keys(row).forEach((key) => {
-              const cleanKey = key.trim().replace(/\uFEFF/g, ""); // Remove BOM se presente
+              const cleanKey = key.trim().replace(/\uFEFF/g, ""); 
               cleanRow[cleanKey] = row[key] ? row[key].toString().trim() : "";
             });
             return cleanRow;
           });
 
-          // Remove linhas completamente vazias
           const filteredData = cleanedData.filter((row) =>
             Object.values(row).some((value) => value && value.trim() !== "")
           );
@@ -623,7 +681,10 @@ const App = () => {
 
         {/* Buttons */}
         <div className="flex flex-col sm:flex-row gap-3 pt-4">
-          <Button className="bg-indigo-500 hover:bg-indigo-600 text-white flex gap-2 justify-center text-sm sm:text-base transition-all duration-300">
+          <Button
+            onClick={handleDownloadPDF}
+            className="bg-indigo-500 hover:bg-indigo-600 text-white flex gap-2 justify-center text-sm sm:text-base transition-all duration-300"
+          >
             <FileDown size={16} />
             Baixar PDF
           </Button>
@@ -637,7 +698,7 @@ const App = () => {
           </Button>
         </div>
 
-        {/* Table Container com scroll horizontal isolado */}
+        {/* Table  */}
         <div className="bg-white shadow-md rounded-xl overflow-hidden">
           <div className="overflow-x-auto">
             <Table className="min-w-full">
