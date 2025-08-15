@@ -1,69 +1,78 @@
-# React + TypeScript + Vite
+<p align="center">
+  <img src="https://media.giphy.com/media/26gsspfjmJPJmy8A0/giphy.gif" width="200"/>
+</p>
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+<h1 align="center">📊 CSV View | KrittZ</h1>
+<p align="center">
+  <strong>Visualize, analise e exporte seus arquivos CSV com estilo e praticidade!</strong>
+</p>
 
-Currently, two official plugins are available:
+<p align="center">
+  <a href="https://krittz.github.io/csv-view">
+    <img src="https://img.shields.io/badge/Visit-Online-green?style=for-the-badge&logo=github" alt="Site Online"/>
+  </a>
+  <img src="https://img.shields.io/badge/Status-Production-brightgreen?style=for-the-badge" alt="Status"/>
+  <img src="https://img.shields.io/badge/React-18-blue?style=for-the-badge&logo=react" alt="React"/>
+  <img src="https://img.shields.io/badge/TypeScript-TS-blue?style=for-the-badge&logo=typescript" alt="TypeScript"/>
+  <img src="https://img.shields.io/badge/Vite-Fast-purple?style=for-the-badge&logo=vite" alt="Vite"/>
+  <img src="https://img.shields.io/badge/TailwindCSS-Beautiful-teal?style=for-the-badge&logo=tailwind-css" alt="TailwindCSS"/>
+</p>
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+---
 
-## Expanding the ESLint configuration
+## ✨ Demonstração
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+<p align="center">
+  <img src="https://media.giphy.com/media/l3vR85PnGsBwu1PFK/giphy.gif" width="600"/>
+</p>
 
-```js
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+---
 
-      // Remove tseslint.configs.recommended and replace with this
-      ...tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      ...tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      ...tseslint.configs.stylisticTypeChecked,
+## 💡 Sobre o Projeto
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+**CSV View** é uma aplicação moderna feita em **React + TypeScript**, com integração de **TailwindCSS** e **shadcn/ui**, para você:
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+- ✅ Importar arquivos CSV de qualquer origem.
+- ✅ Visualizar dados em tabelas dinâmicas e responsivas.
+- ✅ Visualizar estatísticas instantâneas: total de linhas, colunas, tamanho do arquivo, encoding.
+- ✅ Exportar relatórios em PDF ou imprimir com estilo.
+- ✅ Suporte completo a encodings UTF-8, Windows-1252 e ISO-8859-1.
+- ✅ UI elegante, interativa e responsiva.
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+---
 
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+## 🚀 Funcionalidades
+
+| Funcionalidade                  | Status |
+|---------------------------------|--------|
+| Upload CSV                       | ✅      |
+| Visualização de tabela           | ✅      |
+| Estatísticas em cards             | ✅      |
+| PDF Export                        | ✅      |
+| Impressão                        | ✅      |
+| Drag & Drop                      | ✅      |
+| Suporte a múltiplos encodings    | ✅      |
+
+<p align="center">
+  <img src="https://media.giphy.com/media/3o7aD2saalBwwftBIY/giphy.gif" width="500"/>
+</p>
+
+---
+
+## 🛠 Tecnologias
+
+- **Frontend:** React, TypeScript, Vite, TailwindCSS, shadcn/ui  
+- **Parsing CSV:** PapaParse  
+- **PDF e Impressão:** jsPDF + jsPDF-AutoTable  
+- **Deploy:** GitHub Pages
+
+---
+
+## 💻 Instalação Local
+
+Clone o repositório:
+
+```bash
+git clone https://github.com/Krittz/csv-view.git
+cd csv-view
+npm install
